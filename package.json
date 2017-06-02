@@ -1,0 +1,16 @@
+{
+  "name": "xssprox",
+  "version": "1.0.0",
+  "description": "xss proxy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jtd",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "raw-body": "^2.2.0",
+    "ws": "^3.0.0"
+  }
+}
