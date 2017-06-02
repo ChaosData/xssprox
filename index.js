@@ -58,12 +58,22 @@ function handleMessage(msg) {
   let res = inflight[msg.id];
 
   res.status(msg.status);
-  res.set(msg.headers);
+
+  let headers = msg.headers;
+  delete headers['content-encoding'];
+  delete headers['content-length'];
+  res.set(headers);
 
   if (msg.body === null) {
     res.end();
   } else {
-    res.send(Buffer.from(msg.body, 'base64'));
+    if (headers['content-type'].search('/html') != -1) {
+      let html = Buffer.from(msg.body, 'base64').toString('utf-8');
+      html = html.replace(/https/g, "http");
+      res.send(html);
+    } else {
+      res.send(Buffer.from(msg.body, 'base64'));
+    }
   }
 
   delete inflight[msg.id];
